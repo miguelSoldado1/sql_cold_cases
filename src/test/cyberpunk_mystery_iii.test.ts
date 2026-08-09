@@ -36,7 +36,7 @@ describe("Cyberpunk Mystery III", () => {
         JOIN digital_log dl ON d.id = dl.device_id
         WHERE d.device_type = 'Ghost Deck'
           AND dl.anomaly_count = 6
-        UNION
+        INTERSECT
         SELECT p.id
         FROM person p
         JOIN device d ON p.id = d.person_id

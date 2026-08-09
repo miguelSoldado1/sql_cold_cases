@@ -197,7 +197,7 @@ select * from person p
 inner join crypto_transaction ct on ct.person_id = p.id
 inner join location_log ll on ll.person_id = p.id
 inner join neural_implant ni on ni.person_id = p.id
-where ct.amount = 45000 and ct.crypto_type = 'SpectraCoin' and role = 'Security Chief' and ll.sector = 'Core Deck' and ni.cyberware_type = 'Clearance Lattice'
+where ct.amount = 45000 and ct.crypto_type = 'SpectraCoin' and ct.timestamp = 21470301 and role = 'Security Chief' and ll.sector = 'Core Deck' and ll.timestamp = 21470301 and ni.cyberware_type = 'Clearance Lattice'
 ```
 
 ```sql
@@ -240,7 +240,7 @@ with devices as (
 	where dl.anomaly_count = 6 and d.device_type = 'Ghost Deck' and p.role = 'Neural Broker' and ni.last_sync <= 21470301
 	group by (p.id)
 	having count (distinct ni.id) = 5
-	union
+	intersect
 	select p.id from person p
 	inner join device d on d.person_id = p.id
 	inner join digital_log dl on dl.device_id = d.id
@@ -316,7 +316,7 @@ having count(al.id) = 2
 ```
 
 ```sql
-select * from interrogation_log where person_id = 2155
+select * from interrogation_log where person_id = 2197
 ```
 
 ```sql
@@ -326,7 +326,7 @@ where p.role = 'Logistics Tech' and p.module = 'Module C-1' and wo.work_type = '
 ```
 
 ```sql
-select * from interrogation_log where person_id = 2156
+select * from interrogation_log where person_id = 2173
 ```
 
 ```sql

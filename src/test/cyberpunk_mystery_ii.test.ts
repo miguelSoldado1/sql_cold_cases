@@ -66,6 +66,7 @@ describe("Cyberpunk Mystery II", () => {
         AND ni.cyberware_type = 'Clearance Lattice'
         AND ct.amount = 45000
         AND ct.crypto_type = 'SpectraCoin'
+        AND ct.timestamp = 21470301
         AND ll.sector = 'Core Deck'
         AND ll.timestamp = 21470301
       GROUP BY p.id, p.name
