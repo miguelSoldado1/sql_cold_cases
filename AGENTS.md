@@ -9,6 +9,7 @@ SQL Cold Cases is a client-side React and TypeScript puzzle app. TanStack Router
 Important locations:
 
 - `src/routes/`: puzzle pages and accepted solutions.
+- `src/challenges.ts`: shared puzzle titles, descriptions, routes, and SEO metadata.
 - `src/schema/`: schema visualizations shown to players.
 - `src/test/`: puzzle validation tests.
 - `public/database/`: SQLite databases used by the puzzles.
@@ -18,7 +19,7 @@ Important locations:
 
 - Follow the existing TypeScript, React, and route patterns.
 - Preserve unrelated changes in the worktree.
-- Treat the SQLite files, player-facing clues, accepted solutions, tests, and `docs/solutions.md` as one synchronized puzzle definition.
+- Treat `src/challenges.ts`, the SQLite files, player-facing clues, accepted solutions, tests, and `docs/solutions.md` as one synchronized puzzle definition.
 - When a puzzle changes, verify every clue against the actual database rather than relying only on an existing solution query.
 - Do not introduce a new database or table unless the requested puzzle design requires it. Existing themes share databases.
 - Keep spoilers out of the README, route introductions, and other player-facing overview material.

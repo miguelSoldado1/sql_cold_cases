@@ -1,6 +1,10 @@
 {
   "name": "SQL Cold Cases",
   "short_name": "Cold Cases",
+  "description": "Interactive SQL mysteries for practicing database investigation skills.",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",

@@ -1,3 +1,4 @@
+import { getChallenge } from "@/challenges";
 import { HeaderBreadcrumb, HeaderDescription, HeaderWrapper } from "@/components/challenge-header";
 import { SchemaVisualizer } from "@/components/schema-visualiser";
 import { SolutionInput } from "@/components/solution-input";
@@ -7,7 +8,7 @@ import { initialEdges, initialNodes } from "@/schema/undersea_mystery";
 import { createFileRoute } from "@tanstack/react-router";
 import type { Solution } from "@/types";
 
-const TITLE = "Undersea Mystery I";
+const { title: TITLE } = getChallenge("/undersea_mystery_i");
 
 function UnderseaMysteryI() {
   const db = useDatabase("/database/undersea_mystery.db");
@@ -18,12 +19,12 @@ function UnderseaMysteryI() {
         <HeaderBreadcrumb>{TITLE}</HeaderBreadcrumb>
         <h1 className="sr-only">{TITLE}</h1>
         <HeaderDescription>
-          A replacement pump never arrived, and the station is humming a worried tune after an alleged <strong>theft</strong>.
-          Begin by locating the incident report dated <strong>July 18, 2091</strong>. Once you have the report, follow its clues
-          through the access logs, work orders, interrogation logs, and override approvals to identify the onsite actor, the
-          Logistics Tech who submitted the manifest edit, and the Senior Engineer who signed off on the overrides. Pay close
-          attention to timestamps and change notes; they reveal the chain of responsibility and the small inconsistencies that
-          point to the real culprit.
+          A replacement pump never arrived, and the station is humming a worried tune after an alleged <strong>theft</strong>
+          {"."} Begin by locating the incident report dated <strong>July 18, 2091</strong>. Once you have the report, follow its
+          clues through the access logs, work orders, interrogation logs, and override approvals to identify the onsite actor,
+          the Logistics Tech who submitted the manifest edit, and the Senior Engineer who signed off on the overrides. Pay
+          close attention to timestamps and change notes; they reveal the chain of responsibility and the small inconsistencies
+          that point to the real culprit.
         </HeaderDescription>
         <SchemaVisualizer initialNodes={initialNodes} initialEdges={initialEdges} />
       </HeaderWrapper>
@@ -75,9 +76,4 @@ const solutions: Solution[] = [
   },
 ];
 
-export const Route = createFileRoute("/undersea_mystery_i")({
-  component: UnderseaMysteryI,
-  beforeLoad: () => {
-    document.title = TITLE;
-  },
-});
+export const Route = createFileRoute("/undersea_mystery_i")({ component: UnderseaMysteryI });

@@ -1,3 +1,4 @@
+import { getChallenge } from "@/challenges";
 import { HeaderBreadcrumb, HeaderDescription, HeaderWrapper } from "@/components/challenge-header";
 import { SchemaVisualizer } from "@/components/schema-visualiser";
 import { SolutionInput } from "@/components/solution-input";
@@ -7,7 +8,7 @@ import { initialEdges, initialNodes } from "@/schema/cyberpunk_mystery";
 import { createFileRoute } from "@tanstack/react-router";
 import type { Solution } from "@/types";
 
-const TITLE = "Cyberpunk Mystery I";
+const { title: TITLE } = getChallenge("/cyberpunk_mystery_i");
 
 function CyberpunkMystery() {
   const db = useDatabase("/database/cyberpunk_mystery.db");
@@ -69,9 +70,4 @@ const solutions: Solution[] = [
   },
 ];
 
-export const Route = createFileRoute("/cyberpunk_mystery_i")({
-  component: CyberpunkMystery,
-  beforeLoad: () => {
-    document.title = TITLE;
-  },
-});
+export const Route = createFileRoute("/cyberpunk_mystery_i")({ component: CyberpunkMystery });

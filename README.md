@@ -40,6 +40,7 @@ pnpm build
 
 ```text
 src/
+  challenges.ts    Shared puzzle routes and SEO metadata
   components/       Shared challenge and UI components
   hooks/            SQLite database loading
   routes/           Puzzle routes and accepted answers
@@ -55,11 +56,14 @@ The databases are static `.db` files loaded in the browser through `src/hooks/us
 
 Puzzle behavior is spread across several artifacts that must remain synchronized:
 
-1. Add or update the relevant database in `public/database/`.
-2. Update its visualization metadata in `src/schema/` when the schema changes.
-3. Add or update the route in `src/routes/`.
-4. Add deterministic solution-path tests in `src/test/`.
-5. Update the walkthrough in `docs/solutions.md`.
+1. Add the puzzle title, route, and description to `src/challenges.ts`.
+2. Add or update the relevant database in `public/database/`.
+3. Update its visualization metadata in `src/schema/` when the schema changes.
+4. Add or update the route in `src/routes/`.
+5. Add deterministic solution-path tests in `src/test/`.
+6. Update the walkthrough in `docs/solutions.md`.
+
+Production builds generate route-specific HTML metadata, `sitemap.xml`, and `robots.txt` from `src/challenges.ts` automatically. On Vercel, canonical and social URLs use `VERCEL_PROJECT_PRODUCTION_URL`; local builds fall back to `sql.cold-cases.xyz`.
 
 Each complete clue set should produce one intended answer, while partial queries may still encounter plausible decoys. See [CONTRIBUTING.md](CONTRIBUTING.md) for the contribution workflow and [AGENTS.md](AGENTS.md) for repository working conventions.
 

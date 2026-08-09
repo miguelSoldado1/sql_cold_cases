@@ -1,3 +1,4 @@
+import { getChallenge } from "@/challenges";
 import { HeaderBreadcrumb, HeaderDescription, HeaderWrapper } from "@/components/challenge-header";
 import { SchemaVisualizer } from "@/components/schema-visualiser";
 import { SolutionInput } from "@/components/solution-input";
@@ -7,7 +8,7 @@ import { initialEdges, initialNodes } from "@/schema/murder_mystery";
 import { createFileRoute } from "@tanstack/react-router";
 import type { Solution } from "@/types";
 
-const TITLE = "SQL Murder Mystery II";
+const { title: TITLE } = getChallenge("/murder_mystery_ii");
 
 function MurderMysteryII() {
   const db = useDatabase("/database/murder_mystery.db");
@@ -66,9 +67,4 @@ const solutions: Solution[] = [
   },
 ];
 
-export const Route = createFileRoute("/murder_mystery_ii")({
-  component: MurderMysteryII,
-  beforeLoad: () => {
-    document.title = TITLE;
-  },
-});
+export const Route = createFileRoute("/murder_mystery_ii")({ component: MurderMysteryII });
