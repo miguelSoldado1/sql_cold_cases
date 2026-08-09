@@ -7,7 +7,6 @@ export function getSocialImageUrl(siteUrl: string) {
 export const HOME_DESCRIPTION =
   "Practice SQL with interactive murder, cyberpunk, and undersea mysteries. Explore schemas, query real SQLite databases, and solve every cold case.";
 
-export const NOT_FOUND_LABEL = "Case file 404";
 export const NOT_FOUND_HEADING = "This trail has gone cold.";
 export const NOT_FOUND_DESCRIPTION =
   "The requested case file could not be found. It may have been moved, renamed, or sealed.";

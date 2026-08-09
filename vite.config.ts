@@ -11,7 +11,6 @@ import {
   NOT_FOUND_ACTION,
   NOT_FOUND_DESCRIPTION,
   NOT_FOUND_HEADING,
-  NOT_FOUND_LABEL,
 } from "./src/challenges";
 import type { Plugin, ResolvedConfig } from "vite";
 
@@ -87,14 +86,10 @@ function renderNotFoundShell(template: string) {
 
   const staticContent = `<div id="root">
       <main class="mx-auto flex-1 p-4 md:w-4/5 md:p-6">
-        <section class="relative mx-auto flex min-h-[65vh] max-w-3xl items-center overflow-hidden py-16">
-          <div aria-hidden="true" class="absolute right-0 top-1/2 -translate-y-1/2 select-none text-[clamp(8rem,28vw,18rem)] font-black leading-none text-muted">404</div>
-          <div class="relative max-w-xl">
-            <p class="mb-8 inline-flex border-y border-foreground/20 py-2 text-xs font-semibold uppercase tracking-[0.35em] text-muted-foreground">${escapeHtml(NOT_FOUND_LABEL)}</p>
-            <h1 class="text-4xl font-semibold tracking-tight md:text-6xl">${escapeHtml(NOT_FOUND_HEADING)}</h1>
-            <p class="mt-6 max-w-lg text-base leading-7 text-muted-foreground">${escapeHtml(NOT_FOUND_DESCRIPTION)}</p>
-            <a class="mt-8 inline-flex h-10 items-center justify-center whitespace-nowrap rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2" href="/">${escapeHtml(NOT_FOUND_ACTION)}</a>
-          </div>
+        <section class="space-y-4 py-8">
+          <h1 class="text-2xl font-semibold md:text-3xl">${escapeHtml(NOT_FOUND_HEADING)}</h1>
+          <p>${escapeHtml(NOT_FOUND_DESCRIPTION)}</p>
+          <a class="inline-block text-primary underline hover:text-muted-foreground" href="/">${escapeHtml(NOT_FOUND_ACTION)}</a>
         </section>
       </main>
     </div>`;
