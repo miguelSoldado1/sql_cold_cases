@@ -14,7 +14,7 @@ Keep pull requests focused and link related issues when applicable. Preserve the
 
 ## Puzzle changes
 
-A puzzle spans its database records, route copy, accepted solutions, schema visualization, tests, and solution walkthrough. Update every affected artifact together.
+A puzzle spans its entry in `src/challenges.ts`, database records, route copy, accepted solutions, schema visualization, tests, and solution walkthrough. Update every affected artifact together.
 
 When designing a clue chain:
 

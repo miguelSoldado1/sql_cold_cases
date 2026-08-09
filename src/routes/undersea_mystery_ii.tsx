@@ -1,3 +1,4 @@
+import { getChallenge } from "@/challenges";
 import { HeaderBreadcrumb, HeaderDescription, HeaderWrapper } from "@/components/challenge-header";
 import { SchemaVisualizer } from "@/components/schema-visualiser";
 import { SolutionInput } from "@/components/solution-input";
@@ -7,7 +8,7 @@ import { initialEdges, initialNodes } from "@/schema/undersea_mystery";
 import { createFileRoute } from "@tanstack/react-router";
 import type { Solution } from "@/types";
 
-const TITLE = "Undersea Mystery II";
+const { title: TITLE } = getChallenge("/undersea_mystery_ii");
 
 function UnderseaMysteryII() {
   const db = useDatabase("/database/undersea_mystery.db");
@@ -80,9 +81,4 @@ const solutions: Solution[] = [
   },
 ];
 
-export const Route = createFileRoute("/undersea_mystery_ii")({
-  component: UnderseaMysteryII,
-  beforeLoad: () => {
-    document.title = TITLE;
-  },
-});
+export const Route = createFileRoute("/undersea_mystery_ii")({ component: UnderseaMysteryII });
