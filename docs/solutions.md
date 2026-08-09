@@ -1,6 +1,8 @@
-# Solutions for added challenges
+# Puzzle solutions
 
-This document captures the clues and example SQL queries used to solve the challenges including the classic SQL Murder Mystery.
+> **Spoilers:** This document contains the complete clue chains and example queries for every challenge.
+
+Keep these walkthroughs synchronized with the player-facing routes, SQLite databases, accepted solutions, and puzzle tests.
 
 ## SQL Murder Mystery I
 

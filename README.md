@@ -1,63 +1,72 @@
 # SQL Cold Cases
 
-An interactive SQL puzzle web app built with React, TypeScript and Vite. This repository contains multiple "cold case" challenges, each backed by a small SQLite schema and data set. Players explore schemas, run SQL queries, and solve puzzles to progress. The app uses TanStack Router for client-side routing.
+SQL Cold Cases is an interactive puzzle app for practicing SQL investigations. Players inspect a schema, query a SQLite database in the browser, and follow evidence through a series of suspects until they solve each case.
 
-Key features
+The app is built with React, TypeScript, Vite, TanStack Router, `sql.js`, React Flow, and Vitest.
 
-- Interactive SQL editor and query runner
-- Schema visualiser and table nodes for exploring relationships
-- Routing handled with TanStack Router for nested, type-safe routes
-- Several curated mystery challenges under `schema/` and `public/database/`
-- Tests and examples using Vitest
+## Features
 
-Quick start
+- Browser-based SQL editor and query runner
+- Interactive schema visualizations
+- Seven mystery challenges across three themed databases
+- Multi-step investigations with clue-driven decoys
+- Automated tests for every intended solution chain
 
-Prerequisites:
+## Getting started
 
-- Node.js 18+ (or compatible)
-- pnpm (recommended) — or use `npm` / `yarn` with equivalent commands
+Requirements:
 
-Install and run in development:
+- Node.js 18 or later
+- pnpm
+
+Install dependencies and start the development server:
 
 ```bash
 pnpm install
 pnpm dev
 ```
 
-Build and test:
+Then open [http://localhost:5173](http://localhost:5173).
+
+## Verification
 
 ```bash
+pnpm test -- --run
+pnpm lint
 pnpm build
-pnpm test
 ```
 
-Project layout (important files)
+## Project structure
 
-- `src/` — application source
-  - `components/` — UI components (challenge UI, schema visualiser, editor)
-  - `hooks/use-database.ts` — database loader and query runner
-  - `routes/` — route components for each challenge
-- `public/database/` — SQLite `.db` files used by challenges
-- `schema/` — per-challenge schema descriptions and metadata
-- `test/` — Vitest tests for puzzles and components
+```text
+src/
+  components/       Shared challenge and UI components
+  hooks/            SQLite database loading
+  routes/           Puzzle routes and accepted answers
+  schema/           Schema visualization metadata
+  test/             Puzzle validation tests
+public/database/    SQLite databases loaded by the app
+docs/solutions.md   Complete puzzle walkthroughs and spoilers
+```
 
-Adding a new challenge
+The databases are static `.db` files loaded in the browser through `src/hooks/use-database.ts`. Related challenges may share the same themed database.
 
-1. Add the SQLite `.db` file to `public/database/`.
-2. Add any schema metadata in `schema/` (follow existing files as examples).
-3. Create a route/component in `src/routes/` that loads the DB and challenge UI (copy an existing challenge route).
-4. Add tests under `test/` for every new mystery.
+## Adding or changing a challenge
 
-Notes
+Puzzle behavior is spread across several artifacts that must remain synchronized:
 
-- This project uses Vite + React + TypeScript + Tailwind CSS. Configuration files are at the repository root.
-- Database files in `public/database/` are static SQL used to initialise in-browser or wasm SQLite instances.
-- If you run into issues, check the browser console for DB import logs and errors.
+1. Add or update the relevant database in `public/database/`.
+2. Update its visualization metadata in `src/schema/` when the schema changes.
+3. Add or update the route in `src/routes/`.
+4. Add deterministic solution-path tests in `src/test/`.
+5. Update the walkthrough in `docs/solutions.md`.
 
-Where to go next
+Each complete clue set should produce one intended answer, while partial queries may still encounter plausible decoys. See [CONTRIBUTING.md](CONTRIBUTING.md) for the contribution workflow and [AGENTS.md](AGENTS.md) for repository working conventions.
 
-- See `src/components/challenge-header.tsx` and `src/hooks/use-database.ts` to understand how a challenge loads and runs queries.
-- Run `pnpm dev` and open http://localhost:5173 to try puzzles locally.
+## Acknowledgments
 
-If you want, I can add a CONTRIBUTING guide, badges, or a short developer quickstart.
+This project was inspired by the original [SQL Murder Mystery](https://mystery.knightlab.com/).
 
+## License
+
+See [LICENSE](LICENSE).

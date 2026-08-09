@@ -1,41 +1,42 @@
 # Contributing to SQL Cold Cases
 
-Thanks for wanting to contribute! This document explains the typical workflow for development, testing, and adding new challenges.
+Thanks for contributing. Start with the setup and project overview in [README.md](README.md).
 
-Getting started
+## Development workflow
 
-- Prerequisites: Node.js 18+ and `pnpm` (or use `npm` / `yarn`).
-- Install dependencies and run locally:
+1. Create a focused branch from `main`.
+2. Make the smallest coherent change needed.
+3. Add or update tests for behavioral changes.
+4. Run the relevant checks locally.
+5. Open a pull request describing the change and how it was verified.
+
+Keep pull requests focused and link related issues when applicable. Preserve the existing TypeScript and React style instead of introducing unrelated refactors.
+
+## Puzzle changes
+
+A puzzle spans its database records, route copy, accepted solutions, schema visualization, tests, and solution walkthrough. Update every affected artifact together.
+
+When designing a clue chain:
+
+- Make the full set of clues resolve to exactly one intended person.
+- Include plausible decoys that are eliminated by later clues.
+- Ensure every clue maps to visible database fields.
+- Avoid hidden assumptions in tests or solution queries.
+- Check counts after joins for accidental row multiplication.
+- Keep encoded dates and timestamps understandable to players.
+
+Related challenges currently share themed databases, so inspect existing records before adding IDs, names, or story events. Avoid collisions with other puzzles and confirm that new decoys do not invalidate an existing solution.
+
+## Required checks
+
+Run the full verification suite before submitting puzzle or application changes:
 
 ```bash
-pnpm install
-pnpm dev
+pnpm test -- --run
+pnpm lint
+pnpm build
 ```
 
-Branching & pull requests
+For database changes, run the intended SQL directly against the affected `.db` file and verify that each step returns the expected unique answer.
 
-- Create a feature branch from `main`: `git checkout -b feat/<new_mystery>`.
-- Keep PRs focused and include a short description of the change and any manual steps to verify.
-- Link related issue(s) in the PR.
-
-Coding conventions
-
-- Use TypeScript and follow existing code style.
-- Keep changes small and atomic; split large refactors into multiple PRs.
-
-Testing
-
-- Run unit and integration tests with:
-
-```bash
-pnpm test
-```
-
-- Add tests for new features or puzzle validation where possible.
-
-Adding a new challenge
-
-1. Add the SQLite `.db` file to `public/database/` (use a descriptive filename, e.g. `coldcase_undersea_v1.db`).
-2. Add schema/metadata under `schema/` following existing examples so the UI can show tables and hints.
-3. Create a route/component under `src/routes/` (copy an existing challenge route) that loads the `.db` via `use-database` and renders the challenge UI.
-4. Add tests under `test/` to validate puzzles or any automated checks.
+Complete solution walkthroughs belong in `docs/solutions.md`, not in player-facing route introductions or the README.
