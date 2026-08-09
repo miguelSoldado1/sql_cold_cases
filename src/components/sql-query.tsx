@@ -2,10 +2,10 @@ import React, { useRef, useState, useTransition } from "react";
 import { cn } from "@/lib/utils";
 import Editor from "@monaco-editor/react";
 import { PlayIcon, RotateCcwIcon } from "lucide-react";
-import * as monaco from "monaco-editor";
 import { ResultsTable } from "./results-table";
 import { Button } from "./ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
+import type { OnMount } from "@monaco-editor/react";
 import type { editor } from "monaco-editor";
 import type { Database, QueryExecResult } from "sql.js";
 
@@ -23,7 +23,7 @@ export function SqlQuery({ children, db, defaultValue }: SqlQueryProps) {
   const [results, setResults] = useState<QueryExecResult[] | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  function handleEditorDidMount(editor: editor.IStandaloneCodeEditor) {
+  const handleEditorDidMount: OnMount = (editor, monaco) => {
     editorRef.current = editor;
 
     // Add Ctrl/Cmd + Enter to execute query
@@ -47,7 +47,7 @@ export function SqlQuery({ children, db, defaultValue }: SqlQueryProps) {
         setError(null);
       },
     });
-  }
+  };
 
   function resetQuery() {
     startTransition(() => {

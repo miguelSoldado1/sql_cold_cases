@@ -163,7 +163,7 @@ function staticSeoPages(): Plugin {
 }
 
 export default defineConfig({
-  plugins: [TanStackRouterVite(), react(), staticSeoPages()],
+  plugins: [TanStackRouterVite({ autoCodeSplitting: true }), react(), staticSeoPages()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
