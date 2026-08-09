@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 import { describe, expect, it } from "vitest";
-import { challenges, getIndexablePages, getSocialImageUrl } from "../challenges";
+import { challenges, getIndexablePages, getPageMetadata, getSocialImageUrl, NOT_FOUND_DESCRIPTION } from "../challenges";
 
 const SITE_URL = "https://example.com";
 const indexablePages = getIndexablePages(SITE_URL);
@@ -37,5 +37,15 @@ describe("challenge metadata", () => {
     expect(indexablePages[0].canonicalUrl).toBe("https://example.com/");
     expect(indexablePages[1].canonicalUrl).toBe("https://example.com/murder_mystery_i");
     expect(getSocialImageUrl(SITE_URL)).toBe("https://example.com/web-app-manifest-512x512.png");
+  });
+
+  it("marks missing pages as non-indexable", () => {
+    expect(getPageMetadata("/missing-case", SITE_URL)).toEqual({
+      path: "/missing-case",
+      title: "Page Not Found | SQL Cold Cases",
+      description: NOT_FOUND_DESCRIPTION,
+      canonicalUrl: "https://example.com/missing-case",
+      robots: "noindex, nofollow",
+    });
   });
 });
