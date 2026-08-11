@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { captureChallengeAnswerSubmitted, captureChallengeStarted } from "@/lib/analytics";
 import { cn, markChallengeCompleted } from "@/lib/utils";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { CheckIcon, ChevronLeftIcon } from "lucide-react";
@@ -16,6 +17,12 @@ export function SolutionInput({ solutions }: SolutionInputProps) {
   const [result, setResult] = useState<{ text: string; isFinal: boolean } | null>(null);
   const router = useRouterState();
 
+  const pathname = router.location.pathname;
+
+  useEffect(() => {
+    captureChallengeStarted(pathname);
+  }, [pathname]);
+
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -24,13 +31,16 @@ export function SolutionInput({ solutions }: SolutionInputProps) {
     const normalizedSolution = solution.trim().toLowerCase();
     const foundSolution = solutions.find((s) => s.solution.trim().toLowerCase() === normalizedSolution);
     if (foundSolution) {
+      captureChallengeAnswerSubmitted(pathname, foundSolution.final ? "completed" : "intermediate");
+
       if (foundSolution.final) {
-        markChallengeCompleted(router.location.pathname);
+        markChallengeCompleted(pathname);
       }
 
       return setResult({ text: foundSolution.text, isFinal: foundSolution.final });
     }
 
+    captureChallengeAnswerSubmitted(pathname, "incorrect");
     return setResult({ text: WRONG_SOLUTION, isFinal: false });
   }
 
