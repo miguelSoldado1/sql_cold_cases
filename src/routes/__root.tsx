@@ -1,10 +1,16 @@
+import { useEffect } from "react";
 import { Footer } from "@/components/footer";
 import { NotFound } from "@/components/not-found";
 import { SeoMetadata } from "@/components/seo-metadata";
+import { initializeAnalytics } from "@/lib/analytics";
 import { createRootRoute, Outlet } from "@tanstack/react-router";
 import { Analytics } from "@vercel/analytics/react";
 
 function Root() {
+  useEffect(() => {
+    initializeAnalytics();
+  }, []);
+
   return (
     <>
       <SeoMetadata />
@@ -21,3 +27,4 @@ export const Route = createRootRoute({
   component: Root,
   notFoundComponent: NotFound,
 });
+

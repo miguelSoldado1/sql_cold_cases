@@ -21,16 +21,20 @@ function getClient(): Promise<PostHog | null> {
         cookieless_mode: "always",
         person_profiles: "never",
         autocapture: false,
-        capture_pageview: false,
-        capture_pageleave: false,
+        capture_pageview: "history_change",
+        capture_pageleave: true,
+        capture_dead_clicks: false,
         capture_exceptions: false,
+        capture_heatmaps: false,
+        capture_performance: false,
         disable_session_recording: true,
         disable_surveys: true,
         advanced_disable_flags: true,
         advanced_disable_feature_flags: true,
         advanced_disable_feature_flags_on_first_load: true,
-        save_campaign_params: false,
-        save_referrer: false,
+        rageclick: false,
+        save_campaign_params: true,
+        save_referrer: true,
       });
 
       return posthog;
@@ -55,6 +59,10 @@ function captureChallengeEvent(event: ChallengeEvent, pathname: string, properti
   });
 }
 
+export function initializeAnalytics() {
+  void getClient();
+}
+
 export function captureChallengeStarted(pathname: string) {
   captureChallengeEvent("challenge_started", pathname);
 }
@@ -62,3 +70,4 @@ export function captureChallengeStarted(pathname: string) {
 export function captureChallengeAnswerSubmitted(pathname: string, outcome: ChallengeAnswerOutcome) {
   captureChallengeEvent("challenge_answer_submitted", pathname, { answer_outcome: outcome });
 }
+
